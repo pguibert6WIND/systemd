@@ -150,8 +150,11 @@ int test_main(int argc, char *argv[], void *userdata) {
 
         ORDERED_HASHMAP_FOREACH_KEY(val, cmd, event->run_list, i) {
                 char program[UTIL_PATH_SIZE];
+                bool truncated;
 
-                udev_event_apply_format(event, cmd, program, sizeof(program), false);
+                (void) udev_event_apply_format(event, cmd, program, sizeof(program), false, &truncated);
+                if (truncated)
+                        log_warning("The command '%s' is truncated while substituting into '%s'.", program, cmd);
                 printf("run: '%s'\n", program);
         }
 
