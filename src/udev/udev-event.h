@@ -59,7 +59,8 @@ int udev_check_format(const char *value, size_t *offset, const char **hint);
 int udev_event_spawn(UdevEvent *event,
                      usec_t timeout_usec,
                      bool accept_failure,
-                     const char *cmd, char *result, size_t ressize);
+                     const char *cmd, char *result, size_t ressize,
+                     bool *ret_truncated);
 int udev_event_execute_rules(UdevEvent *event,
                              usec_t timeout_usec,
                              Hashmap *properties_list,
